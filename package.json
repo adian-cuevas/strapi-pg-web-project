@@ -1,0 +1,33 @@
+{
+  "name": "strapi-pg-web-project",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "@strapi/plugin-graphql": "^4.14.3",
+    "@strapi/plugin-i18n": "4.14.3",
+    "@strapi/plugin-users-permissions": "4.14.3",
+    "@strapi/provider-email-nodemailer": "^4.14.3",
+    "@strapi/strapi": "4.14.3",
+    "pg": "8.8.0",
+    "strapi-plugin-generate-data": "^1.0.28"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "c55da39c-057e-4d44-8cd8-4e9d690b218d"
+  },
+  "engines": {
+    "node": ">=16.0.0 <=20.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}
