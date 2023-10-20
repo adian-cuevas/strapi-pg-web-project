@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "eventos",
+  "collectionName": "tareas",
   "info": {
-    "singularName": "evento",
-    "pluralName": "eventos",
-    "displayName": "Evento",
+    "singularName": "tarea",
+    "pluralName": "tareas",
+    "displayName": "Tarea",
     "description": ""
   },
   "options": {
@@ -17,61 +17,70 @@
   },
   "attributes": {
     "nombre": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
       "required": true
-    },
-    "fecha": {
-      "type": "date",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": true
-    },
-    "hora_de_inicio": {
-      "type": "time",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
     },
     "descripcion": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "type": "text",
+      "maxLength": 100
+    },
+    "fecha": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "type": "date",
+      "required": true
     },
-    "hora_de_fin": {
+    "hora_inicio": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "type": "time",
+      "required": true,
+      "default": "00:00"
+    },
+    "hora_fin": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "type": "time",
+      "required": true,
+      "default": "00:15"
     },
-    "invitados": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "plugin::users-permissions.user"
-    },
-    "creador": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+    "completado": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean",
+      "default": false
     },
     "recordatorios": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::recordatorio.recordatorio"
+    },
+    "creador": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }
