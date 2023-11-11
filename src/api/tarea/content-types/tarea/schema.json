@@ -1,0 +1,86 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tareas",
+  "info": {
+    "singularName": "tarea",
+    "pluralName": "tareas",
+    "displayName": "Tarea",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "nombre": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text",
+      "maxLength": 100
+    },
+    "fecha": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "date",
+      "required": true
+    },
+    "hora_inicio": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "time",
+      "required": true,
+      "default": "00:00"
+    },
+    "hora_fin": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "time",
+      "required": true,
+      "default": "00:15"
+    },
+    "completado": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean",
+      "default": false
+    },
+    "recordatorios": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::recordatorio.recordatorio"
+    },
+    "creador": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

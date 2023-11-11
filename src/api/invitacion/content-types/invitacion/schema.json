@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "invitaciones",
+  "info": {
+    "singularName": "invitacion",
+    "pluralName": "invitaciones",
+    "displayName": "Invitacion",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "evento": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::evento.evento"
+    },
+    "Estado": {
+      "type": "enumeration",
+      "enum": [
+        "pendiente",
+        "aceptado",
+        "rechazado"
+      ],
+      "default": "pendiente",
+      "required": true
+    },
+    "fecha_envio": {
+      "required": true,
+      "type": "date"
+    },
+    "mensaje": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "invitados": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
