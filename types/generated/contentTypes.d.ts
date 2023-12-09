@@ -686,7 +686,7 @@ export interface ApiCalendarioCalendario extends Schema.CollectionType {
   info: {
     singularName: 'calendario';
     pluralName: 'calendarios';
-    displayName: 'Calendario';
+    displayName: 'Calendar';
     description: '';
   };
   options: {
@@ -705,7 +705,7 @@ export interface ApiCalendarioCalendario extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    eventos: Attribute.Relation<
+    events: Attribute.Relation<
       'api::calendario.calendario',
       'oneToMany',
       'api::evento.evento'
@@ -715,19 +715,19 @@ export interface ApiCalendarioCalendario extends Schema.CollectionType {
       'oneToMany',
       'api::tarea.tarea'
     >;
-    publico: Attribute.Boolean &
+    public: Attribute.Boolean &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }> &
       Attribute.DefaultTo<false>;
-    creador: Attribute.Relation<
+    author: Attribute.Relation<
       'api::calendario.calendario',
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    subscriptores: Attribute.Relation<
+    subscribers: Attribute.Relation<
       'api::calendario.calendario',
       'oneToMany',
       'plugin::users-permissions.user'
