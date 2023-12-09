@@ -25,7 +25,7 @@
       "type": "string",
       "required": true
     },
-    "descripcion": {
+    "description": {
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -34,7 +34,7 @@
       "type": "text",
       "maxLength": 100
     },
-    "fecha": {
+    "date": {
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -43,7 +43,7 @@
       "type": "date",
       "required": true
     },
-    "hora_inicio": {
+    "start_time": {
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -53,7 +53,7 @@
       "required": true,
       "default": "00:00"
     },
-    "hora_fin": {
+    "end_time": {
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -63,7 +63,7 @@
       "required": true,
       "default": "00:15"
     },
-    "completado": {
+    "done": {
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -72,12 +72,12 @@
       "type": "boolean",
       "default": false
     },
-    "recordatorios": {
+    "reminders": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::recordatorio.recordatorio"
     },
-    "creador": {
+    "author": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
