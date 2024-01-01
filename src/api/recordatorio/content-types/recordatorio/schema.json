@@ -16,7 +16,7 @@
     }
   },
   "attributes": {
-    "fecha_activacion": {
+    "activation_date": {
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -25,7 +25,7 @@
       "required": true,
       "type": "datetime"
     },
-    "descripcion": {
+    "description": {
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -33,7 +33,7 @@
       },
       "type": "text"
     },
-    "creador": {
+    "author": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"

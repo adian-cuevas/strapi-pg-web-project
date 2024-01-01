@@ -710,7 +710,7 @@ export interface ApiCalendarioCalendario extends Schema.CollectionType {
       'oneToMany',
       'api::evento.evento'
     >;
-    tareas: Attribute.Relation<
+    tasks: Attribute.Relation<
       'api::calendario.calendario',
       'oneToMany',
       'api::tarea.tarea'
@@ -780,42 +780,42 @@ export interface ApiEventoEvento extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    fecha: Attribute.Date &
+    date: Attribute.Date &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hora_de_inicio: Attribute.Time &
+    start_time: Attribute.Time &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    descripcion: Attribute.Text &
+    description: Attribute.Text &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hora_de_fin: Attribute.Time &
+    end_time: Attribute.Time &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    invitados: Attribute.Relation<
+    gests: Attribute.Relation<
       'api::evento.evento',
       'oneToMany',
       'plugin::users-permissions.user'
     >;
-    creador: Attribute.Relation<
+    auhor: Attribute.Relation<
       'api::evento.evento',
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    recordatorios: Attribute.Relation<
+    reminders: Attribute.Relation<
       'api::evento.evento',
       'oneToMany',
       'api::recordatorio.recordatorio'
@@ -909,20 +909,20 @@ export interface ApiRecordatorioRecordatorio extends Schema.CollectionType {
     };
   };
   attributes: {
-    fecha_activacion: Attribute.DateTime &
+    activation_date: Attribute.DateTime &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    descripcion: Attribute.Text &
+    description: Attribute.Text &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    creador: Attribute.Relation<
+    author: Attribute.Relation<
       'api::recordatorio.recordatorio',
       'oneToOne',
       'plugin::users-permissions.user'
@@ -975,7 +975,7 @@ export interface ApiTareaTarea extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    descripcion: Attribute.Text &
+    description: Attribute.Text &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -984,14 +984,14 @@ export interface ApiTareaTarea extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         maxLength: 100;
       }>;
-    fecha: Attribute.Date &
+    date: Attribute.Date &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hora_inicio: Attribute.Time &
+    start_time: Attribute.Time &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -999,7 +999,7 @@ export interface ApiTareaTarea extends Schema.CollectionType {
         };
       }> &
       Attribute.DefaultTo<'00:00'>;
-    hora_fin: Attribute.Time &
+    end_time: Attribute.Time &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1007,19 +1007,19 @@ export interface ApiTareaTarea extends Schema.CollectionType {
         };
       }> &
       Attribute.DefaultTo<'00:15'>;
-    completado: Attribute.Boolean &
+    done: Attribute.Boolean &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }> &
       Attribute.DefaultTo<false>;
-    recordatorios: Attribute.Relation<
+    reminders: Attribute.Relation<
       'api::tarea.tarea',
       'oneToMany',
       'api::recordatorio.recordatorio'
     >;
-    creador: Attribute.Relation<
+    author: Attribute.Relation<
       'api::tarea.tarea',
       'oneToOne',
       'plugin::users-permissions.user'

@@ -1,14 +1,10 @@
-/**
- * isAuthenticated policy
- */
 
 export default (policyContext, config, { strapi }) => {
-    // Add your own logic here.
-    strapi.log.info('In isAuthenticated policy.');
+  strapi.log.info('In isAuthenticated policy.');
+  if (policyContext.state.user) { // if a session is open
+    // go to next policy or reach the controller's action
+    return true;
+  }
 
-    if (policyContext.state.user) {
-      return true;
-    }
-
-    return false;
+  return false; // If you return nothing, Strapi considers you didn't want to block the request and will let it pass
 };
