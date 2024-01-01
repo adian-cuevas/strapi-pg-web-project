@@ -14,7 +14,7 @@ module.exports = (config, { strapi }) => {
      * populating every relations to ensure 
      * the response includes author-related information
      */
-    
+
     let entry = entryId ?
       await strapi.entityService.findOne(
       "api::evento.evento",
