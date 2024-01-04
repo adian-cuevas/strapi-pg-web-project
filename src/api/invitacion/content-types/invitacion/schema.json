@@ -12,12 +12,12 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "evento": {
+    "event": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::evento.evento"
     },
-    "Estado": {
+    "status": {
       "type": "enumeration",
       "enum": [
         "pendiente",
@@ -27,17 +27,22 @@
       "default": "pendiente",
       "required": true
     },
-    "fecha_envio": {
+    "sent_date": {
       "required": true,
       "type": "date"
     },
-    "mensaje": {
+    "message": {
       "type": "string",
       "maxLength": 100
     },
-    "invitados": {
+    "gests": {
       "type": "relation",
       "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     }
   }

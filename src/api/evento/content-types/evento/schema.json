@@ -63,7 +63,7 @@
       "relation": "oneToMany",
       "target": "plugin::users-permissions.user"
     },
-    "auhor": {
+    "author": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"

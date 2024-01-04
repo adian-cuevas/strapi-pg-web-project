@@ -659,7 +659,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    calendarios: Attribute.Relation<
+    calendars: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
       'api::calendario.calendario'
@@ -698,7 +698,7 @@ export interface ApiCalendarioCalendario extends Schema.CollectionType {
     };
   };
   attributes: {
-    nombre: Attribute.String &
+    name: Attribute.String &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -810,7 +810,7 @@ export interface ApiEventoEvento extends Schema.CollectionType {
       'oneToMany',
       'plugin::users-permissions.user'
     >;
-    auhor: Attribute.Relation<
+    author: Attribute.Relation<
       'api::evento.evento',
       'oneToOne',
       'plugin::users-permissions.user'
@@ -856,22 +856,27 @@ export interface ApiInvitacionInvitacion extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    evento: Attribute.Relation<
+    event: Attribute.Relation<
       'api::invitacion.invitacion',
       'oneToOne',
       'api::evento.evento'
     >;
-    Estado: Attribute.Enumeration<['pendiente', 'aceptado', 'rechazado']> &
+    status: Attribute.Enumeration<['pendiente', 'aceptado', 'rechazado']> &
       Attribute.Required &
       Attribute.DefaultTo<'pendiente'>;
-    fecha_envio: Attribute.Date & Attribute.Required;
-    mensaje: Attribute.String &
+    sent_date: Attribute.Date & Attribute.Required;
+    message: Attribute.String &
       Attribute.SetMinMaxLength<{
         maxLength: 100;
       }>;
-    invitados: Attribute.Relation<
+    gests: Attribute.Relation<
       'api::invitacion.invitacion',
       'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    author: Attribute.Relation<
+      'api::invitacion.invitacion',
+      'oneToOne',
       'plugin::users-permissions.user'
     >;
     createdAt: Attribute.DateTime;
@@ -968,7 +973,7 @@ export interface ApiTareaTarea extends Schema.CollectionType {
     };
   };
   attributes: {
-    nombre: Attribute.String &
+    name: Attribute.String &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {

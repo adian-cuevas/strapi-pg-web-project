@@ -1,11 +1,11 @@
 "use strict";
 
 /**
- * `isEventOwner` middleware
+ * `isCalendarOwner` middleware
  */
 
 module.exports = (config, { strapi }) => {
-
+  // Add your own logic here.
   return async (ctx, next) => {
     const user = ctx.state.user;
     const entryId = ctx.params.id ? ctx.params.id : undefined;
@@ -29,10 +29,17 @@ module.exports = (config, { strapi }) => {
      * to decide whether the request can be fulfilled
      * by going forward in the Strapi backend server
      */
-    if (user.id !== entry.author.id) {
-      return ctx.unauthorized("This action is unauthorized.");
-    } else {
-      return next();
+    try{
+      if (user.id !== entry.author.id) {
+        return ctx.unauthorized("This action is unauthorized.");
+      } else {
+        return next();
+      }
     }
+    catch(error){
+      console.error(error);
+      ctx.badRequest("Something went wrong");
+    }
+    
   };
 };

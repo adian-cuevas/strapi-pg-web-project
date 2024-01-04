@@ -16,7 +16,7 @@
     }
   },
   "attributes": {
-    "nombre": {
+    "name": {
       "pluginOptions": {
         "i18n": {
           "localized": true

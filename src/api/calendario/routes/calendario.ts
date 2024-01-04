@@ -31,5 +31,8 @@ export default factories.createCoreRouter('api::calendario.calendario',{
 
             middlewares: ['api::calendario.is-calendar-owner']
         },
+        create: {
+            policies:["global::isAuthenticated"],
+        }
     },
 });
