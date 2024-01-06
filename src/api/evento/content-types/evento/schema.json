@@ -58,7 +58,7 @@
         }
       }
     },
-    "gests": {
+    "guests": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "plugin::users-permissions.user"

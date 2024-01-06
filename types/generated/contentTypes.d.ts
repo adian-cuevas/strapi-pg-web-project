@@ -690,7 +690,7 @@ export interface ApiCalendarioCalendario extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -702,7 +702,7 @@ export interface ApiCalendarioCalendario extends Schema.CollectionType {
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }>;
     events: Attribute.Relation<
@@ -734,7 +734,6 @@ export interface ApiCalendarioCalendario extends Schema.CollectionType {
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::calendario.calendario',
       'oneToOne',
@@ -805,7 +804,7 @@ export interface ApiEventoEvento extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    gests: Attribute.Relation<
+    guests: Attribute.Relation<
       'api::evento.evento',
       'oneToMany',
       'plugin::users-permissions.user'
@@ -844,56 +843,107 @@ export interface ApiEventoEvento extends Schema.CollectionType {
   };
 }
 
-export interface ApiInvitacionInvitacion extends Schema.CollectionType {
-  collectionName: 'invitaciones';
+export interface ApiInternationalizationInternationalization
+  extends Schema.CollectionType {
+  collectionName: 'internationalizations';
   info: {
-    singularName: 'invitacion';
-    pluralName: 'invitaciones';
-    displayName: 'Invitacion';
+    singularName: 'internationalization';
+    pluralName: 'internationalizations';
+    displayName: 'Internationalization';
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
   };
   attributes: {
-    event: Attribute.Relation<
-      'api::invitacion.invitacion',
-      'oneToOne',
-      'api::evento.evento'
-    >;
-    status: Attribute.Enumeration<['pendiente', 'aceptado', 'rechazado']> &
-      Attribute.Required &
-      Attribute.DefaultTo<'pendiente'>;
-    sent_date: Attribute.Date & Attribute.Required;
-    message: Attribute.String &
-      Attribute.SetMinMaxLength<{
-        maxLength: 100;
+    element: Attribute.JSON &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
       }>;
-    gests: Attribute.Relation<
-      'api::invitacion.invitacion',
-      'oneToMany',
-      'plugin::users-permissions.user'
-    >;
-    author: Attribute.Relation<
-      'api::invitacion.invitacion',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::invitacion.invitacion',
+      'api::internationalization.internationalization',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::invitacion.invitacion',
+      'api::internationalization.internationalization',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::internationalization.internationalization',
+      'oneToMany',
+      'api::internationalization.internationalization'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiNotificationNotification extends Schema.CollectionType {
+  collectionName: 'notifications';
+  info: {
+    singularName: 'notification';
+    pluralName: 'notifications';
+    displayName: 'notification';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    message: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::notification.notification',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::notification.notification',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::notification.notification',
+      'oneToMany',
+      'api::notification.notification'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1071,7 +1121,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::calendario.calendario': ApiCalendarioCalendario;
       'api::evento.evento': ApiEventoEvento;
-      'api::invitacion.invitacion': ApiInvitacionInvitacion;
+      'api::internationalization.internationalization': ApiInternationalizationInternationalization;
+      'api::notification.notification': ApiNotificationNotification;
       'api::recordatorio.recordatorio': ApiRecordatorioRecordatorio;
       'api::tarea.tarea': ApiTareaTarea;
     }

@@ -1,18 +1,36 @@
-export default {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
-  register(/*{ strapi }*/) {},
+import { Server } from "socket.io";
 
-  /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
-   */
-  bootstrap(/*{ strapi }*/) {},
+export default {
+  register({ strapi }) {},
+
+  bootstrap({ strapi }) {
+    const io = new Server(strapi.server.httpServer, {
+      cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
+      },
+    });
+
+    io.on("connection", (socket) => {
+      console.log("a user connected");
+
+      socket.on("message", async (message) => {
+        console.log(message);
+
+        io.emit("message", `${socket.id.substr(0, 2)} said ${message}`);
+
+        const entry = await strapi.db
+          .query("api::notification.notification")
+          .create({
+            data: {
+              message: message,
+              user: socket.id.substr(0, 2),
+            },
+          })
+          .catch((e) => {
+            console.log("error", e);
+          });
+      });
+    });
+  },
 };
