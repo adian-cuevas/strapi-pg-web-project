@@ -65,7 +65,7 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "calendarios": {
+    "calendars": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::calendario.calendario"

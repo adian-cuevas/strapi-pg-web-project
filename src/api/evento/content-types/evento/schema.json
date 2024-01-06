@@ -25,7 +25,7 @@
       },
       "required": true
     },
-    "fecha": {
+    "date": {
       "type": "date",
       "pluginOptions": {
         "i18n": {
@@ -34,7 +34,7 @@
       },
       "required": true
     },
-    "hora_de_inicio": {
+    "start_time": {
       "type": "time",
       "pluginOptions": {
         "i18n": {
@@ -42,7 +42,7 @@
         }
       }
     },
-    "descripcion": {
+    "description": {
       "type": "text",
       "pluginOptions": {
         "i18n": {
@@ -50,7 +50,7 @@
         }
       }
     },
-    "hora_de_fin": {
+    "end_time": {
       "type": "time",
       "pluginOptions": {
         "i18n": {
@@ -58,17 +58,17 @@
         }
       }
     },
-    "invitados": {
+    "gests": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "plugin::users-permissions.user"
     },
-    "creador": {
+    "author": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "recordatorios": {
+    "reminders": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::recordatorio.recordatorio"

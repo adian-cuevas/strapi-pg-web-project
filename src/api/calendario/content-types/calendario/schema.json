@@ -4,7 +4,7 @@
   "info": {
     "singularName": "calendario",
     "pluralName": "calendarios",
-    "displayName": "Calendario",
+    "displayName": "Calendar",
     "description": ""
   },
   "options": {
@@ -16,7 +16,7 @@
     }
   },
   "attributes": {
-    "nombre": {
+    "name": {
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -25,17 +25,17 @@
       "type": "string",
       "required": true
     },
-    "eventos": {
+    "events": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::evento.evento"
     },
-    "tareas": {
+    "tasks": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::tarea.tarea"
     },
-    "publico": {
+    "public": {
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -44,12 +44,12 @@
       "type": "boolean",
       "default": false
     },
-    "creador": {
+    "author": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "subscriptores": {
+    "subscribers": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "plugin::users-permissions.user"
