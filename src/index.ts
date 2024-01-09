@@ -14,17 +14,18 @@ export default {
     io.on("connection", (socket) => {
       console.log("a user connected");
 
-      socket.on("message", async (message) => {
-        console.log(message);
+      socket.on("notificaction", async (notification) => {
+        console.log(notification.message,notification.title);
 
-        io.emit("message", `${socket.id.substr(0, 2)} said ${message}`);
+        io.emit("notification", notification );
 
         const entry = await strapi.db
           .query("api::notification.notification")
           .create({
             data: {
-              message: message,
-              user: socket.id.substr(0, 2),
+              title:notification.title,
+              message: notification.message,
+              guests: notification.guests,
             },
           })
           .catch((e) => {

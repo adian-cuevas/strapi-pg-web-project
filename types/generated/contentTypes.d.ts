@@ -764,7 +764,7 @@ export interface ApiEventoEvento extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -772,7 +772,7 @@ export interface ApiEventoEvento extends Schema.CollectionType {
     };
   };
   attributes: {
-    nombre: Attribute.String &
+    name: Attribute.String &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -821,7 +821,6 @@ export interface ApiEventoEvento extends Schema.CollectionType {
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::evento.evento',
       'oneToOne',
@@ -891,57 +890,6 @@ export interface ApiInternationalizationInternationalization
       'api::internationalization.internationalization',
       'oneToMany',
       'api::internationalization.internationalization'
-    >;
-    locale: Attribute.String;
-  };
-}
-
-export interface ApiNotificationNotification extends Schema.CollectionType {
-  collectionName: 'notifications';
-  info: {
-    singularName: 'notification';
-    pluralName: 'notifications';
-    displayName: 'notification';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    title: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    message: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::notification.notification',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::notification.notification',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    localizations: Attribute.Relation<
-      'api::notification.notification',
-      'oneToMany',
-      'api::notification.notification'
     >;
     locale: Attribute.String;
   };
@@ -1122,7 +1070,6 @@ declare module '@strapi/types' {
       'api::calendario.calendario': ApiCalendarioCalendario;
       'api::evento.evento': ApiEventoEvento;
       'api::internationalization.internationalization': ApiInternationalizationInternationalization;
-      'api::notification.notification': ApiNotificationNotification;
       'api::recordatorio.recordatorio': ApiRecordatorioRecordatorio;
       'api::tarea.tarea': ApiTareaTarea;
     }
