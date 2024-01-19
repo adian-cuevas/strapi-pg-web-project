@@ -14,14 +14,16 @@ module.exports = (config, { strapi }) => {
      * populating every relations to ensure 
      * the response includes author-related information
      */
+      console.log(entryId);
 
     let entry = entryId ?
       await strapi.entityService.findOne(
-      "api::recordatorio.recordatorio",
+      "api::invitation.invitation",
       entryId,
       { populate: "*" }
       ):
       {};
+      console.log(entry)
 
   
     /**
@@ -30,7 +32,9 @@ module.exports = (config, { strapi }) => {
      * by going forward in the Strapi backend server
      */
     try{
-      if (user.id !== entry.author.id) {
+      console.log(entry.guest_user.id)
+
+      if (user.id !== entry.guest_user.id) {
         return ctx.unauthorized("This action is unauthorized.");
       } else {
         return next();

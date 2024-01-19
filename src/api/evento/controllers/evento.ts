@@ -12,6 +12,10 @@ interface Event {
   date: Date; // Fecha del evento
   guests: number[]; // Lista de IDs de invitados (números)
 }
+interface Data{
+  eventID : number;
+  guestId:number;
+}
 
 export default factories.createCoreController('api::evento.evento', ({ strapi }) => ({
  
@@ -20,6 +24,7 @@ export default factories.createCoreController('api::evento.evento', ({ strapi })
    * Extrae la información del contexto de la solicitud y crea un nuevo evento.
    */
   async create(ctx) {
+    
     const user = ctx.state.user; // Usuario actual
     const { name, description, start, end, date, guests } = ctx.request.body as Event; // Extraer datos del cuerpo de la solicitud
     console.log(name)
@@ -41,4 +46,5 @@ export default factories.createCoreController('api::evento.evento', ({ strapi })
     // Asignar el evento sanitizado como cuerpo de la respuesta
     ctx.body = sanitizedEvent;
   },
+ 
 }));

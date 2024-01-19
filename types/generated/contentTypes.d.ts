@@ -895,6 +895,76 @@ export interface ApiInternationalizationInternationalization
   };
 }
 
+export interface ApiInvitationInvitation extends Schema.CollectionType {
+  collectionName: 'invitations';
+  info: {
+    singularName: 'invitation';
+    pluralName: 'invitations';
+    displayName: 'Invitation';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    message: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    event: Attribute.Relation<
+      'api::invitation.invitation',
+      'oneToOne',
+      'api::evento.evento'
+    >;
+    guest_user: Attribute.Relation<
+      'api::invitation.invitation',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    status: Attribute.Enumeration<['pending', 'accepted', 'rejected']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<'pending'>;
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<'Has sido invitado a un evento!!'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::invitation.invitation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::invitation.invitation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::invitation.invitation',
+      'oneToMany',
+      'api::invitation.invitation'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiRecordatorioRecordatorio extends Schema.CollectionType {
   collectionName: 'recordatorios';
   info: {
@@ -1070,6 +1140,7 @@ declare module '@strapi/types' {
       'api::calendario.calendario': ApiCalendarioCalendario;
       'api::evento.evento': ApiEventoEvento;
       'api::internationalization.internationalization': ApiInternationalizationInternationalization;
+      'api::invitation.invitation': ApiInvitationInvitation;
       'api::recordatorio.recordatorio': ApiRecordatorioRecordatorio;
       'api::tarea.tarea': ApiTareaTarea;
     }
