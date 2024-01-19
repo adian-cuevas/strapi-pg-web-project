@@ -63,22 +63,28 @@ export default factories.createCoreController('api::invitation.invitation',
     },
 
     async state(ctx) {
-      console.log("hola estoy aqui");
+      // Imprime un mensaje de registro en la consola para indicar la ejecución de la función
+      console.log("invitation.state");
+
+      // Extrae los datos relevantes del cuerpo de la solicitud
       const { invitationId, state, eventID } = ctx.request.body as Data;
 
+      // Imprime en la consola los datos extraídos para propósitos de depuración
       console.log(invitationId, state, eventID);
+
+      // Inicializa la variable result como nula
       let result = null;
+
       try {
-        // Buscar la invitación por su ID
+        // Busca una invitación existente por su ID
         const existingInvitation = await strapi.entityService.findOne("api::invitation.invitation", invitationId);
 
-        // Verificar si la invitación existe antes de intentar actualizar
+        // Verifica si la invitación no existe y retorna un error 404 si es el caso
         if (!existingInvitation) {
           return ctx.notFound('Invitation not found');
         }
 
-
-
+        // Obtiene información detallada de la invitación y del evento asociado
         const invitation = await strapi.entityService.findOne("api::invitation.invitation", invitationId, {
           populate: ['guest_user'],
         });
@@ -86,42 +92,42 @@ export default factories.createCoreController('api::invitation.invitation',
           populate: ['guests'],
         });
 
+        // Verifica si el estado es "accepted"
         if (state === "accepted") {
+          // Actualiza el estado de la invitación a "accepted"
           result = await strapi.entityService.update("api::invitation.invitation", invitationId, {
             data: {
               status: "accepted"
             }
           });
-          console.log(event.guests);
-          console.log(invitation.guest_user);
 
+          
+
+          // Combina la lista de invitados del evento con el nuevo invitado aceptado
           const guests_updated = event.guests.concat(invitation.guest_user);
+
+          // Obtiene los IDs de los invitados actualizados
           const guests_id = guests_updated.map(guest => guest.id)
           console.log(guests_id);
 
+          // Actualiza la lista de invitados del evento con los IDs actualizados
           strapi.entityService.update("api::evento.evento", eventID, {
             data: {
               guests: guests_id
-
             }
           })
 
-
-          console.log(guests_id);
-
-          // await axios.put(`http://127.0.0.1:1337/api/eventos/${eventID}`, {
-          //   guests: {
-          //     connect: [invitation.guest_user]
-          //   }
-          // });
+        
         }
       } catch (error) {
+        // Maneja errores relacionados con la actualización del estado de la invitación
         console.error('Error updating invitation status:', error);
         ctx.badRequest("Something went wrong");
       }
-      return result;
 
+      // Retorna el resultado de la operación de actualización (puede ser nulo si no se cumple la condición "accepted")
+      return result;
     }
 
   })
-);
+  );
