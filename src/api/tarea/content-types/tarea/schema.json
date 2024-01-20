@@ -72,15 +72,27 @@
       "type": "boolean",
       "default": false
     },
-    "reminders": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::recordatorio.recordatorio"
-    },
     "author": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "allday": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean",
+      "default": false
+    },
+    "reminder": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "datetime"
     }
   }
 }

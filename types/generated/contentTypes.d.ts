@@ -814,11 +814,19 @@ export interface ApiEventoEvento extends Schema.CollectionType {
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    reminders: Attribute.Relation<
-      'api::evento.evento',
-      'oneToMany',
-      'api::recordatorio.recordatorio'
-    >;
+    allday: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<false>;
+    reminder: Attribute.DateTime &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -965,65 +973,6 @@ export interface ApiInvitationInvitation extends Schema.CollectionType {
   };
 }
 
-export interface ApiRecordatorioRecordatorio extends Schema.CollectionType {
-  collectionName: 'recordatorios';
-  info: {
-    singularName: 'recordatorio';
-    pluralName: 'recordatorios';
-    displayName: 'Recordatorio';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    activation_date: Attribute.DateTime &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    description: Attribute.Text &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    author: Attribute.Relation<
-      'api::recordatorio.recordatorio',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::recordatorio.recordatorio',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::recordatorio.recordatorio',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    localizations: Attribute.Relation<
-      'api::recordatorio.recordatorio',
-      'oneToMany',
-      'api::recordatorio.recordatorio'
-    >;
-    locale: Attribute.String;
-  };
-}
-
 export interface ApiTareaTarea extends Schema.CollectionType {
   collectionName: 'tareas';
   info: {
@@ -1087,16 +1036,24 @@ export interface ApiTareaTarea extends Schema.CollectionType {
         };
       }> &
       Attribute.DefaultTo<false>;
-    reminders: Attribute.Relation<
-      'api::tarea.tarea',
-      'oneToMany',
-      'api::recordatorio.recordatorio'
-    >;
     author: Attribute.Relation<
       'api::tarea.tarea',
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+    allday: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<false>;
+    reminder: Attribute.DateTime &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1141,7 +1098,6 @@ declare module '@strapi/types' {
       'api::evento.evento': ApiEventoEvento;
       'api::internationalization.internationalization': ApiInternationalizationInternationalization;
       'api::invitation.invitation': ApiInvitationInvitation;
-      'api::recordatorio.recordatorio': ApiRecordatorioRecordatorio;
       'api::tarea.tarea': ApiTareaTarea;
     }
   }
