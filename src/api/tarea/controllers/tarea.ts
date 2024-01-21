@@ -22,20 +22,30 @@ export default factories.createCoreController('api::tarea.tarea', ({ strapi }) =
 
       // Crear un nuevo evento utilizando el servicio de entidades de Strapi
       const result = await super.create(ctx);
-      console.log(calendarID)
+      //puercada necesaria porque si no no pincha
+      console.log(result)
+      const {data}=result;
+      console.log(data);
+      const {id}=data;
+      console.log(id)
+
       // Actualizar el calendario con el nuevo evento
       const calendar = await strapi.entityService.findOne("api::calendario.calendario", calendarID, {
         populate: ["tasks"],
       });
-      console.log("llegue aqui 1")
+      console.log(calendar)
+      const tasks_ids = calendar.tasks.map(task => task.id);
 
-      const tasks_updated = calendar.tasks.concat(result);
-      const tasks_ids = tasks_updated.map(task => task.id);
-      console.log("llegue aqui 2")
+      const tasks_updated = tasks_ids.concat(id);
+      console.log("tasks updated")
+
+      console.log(tasks_updated)
+
+      console.log(tasks_ids)
 
       await strapi.entityService.update("api::calendario.calendario", calendarID, {
         data: {
-          tasks: tasks_ids,
+          tasks: tasks_updated,
         }
       });
       console.log("llegue aqui 3")

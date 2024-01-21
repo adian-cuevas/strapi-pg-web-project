@@ -21,16 +21,18 @@ export default factories.createCoreController('api::evento.evento', ({ strapi })
 
       // Crear un nuevo evento utilizando el servicio de entidades de Strapi
       const result = await super.create(ctx);
-
+      const{data}=result;
+      const {id} = data;
       // Actualizar el calendario con el nuevo evento
       const calendar = await strapi.entityService.findOne("api::calendario.calendario", calendarID, {
         populate: ["events"],
       });
-      const events_updated = calendar.events.concat(result);
-      const events_ids = events_updated.map(event => event.id);
+      const events_ids = calendar.events.map(event => event.id);
+
+      const events_updated = events_ids.concat(id);
       await strapi.entityService.update("api::calendario.calendario", calendarID, {
         data: {
-          events: events_ids,
+          events: events_updated,
         }
       });
 
