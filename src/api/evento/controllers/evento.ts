@@ -17,7 +17,7 @@ export default factories.createCoreController('api::evento.evento', ({ strapi })
     const user = ctx.state.user; // Usuario actual
     try {
       
-      const calendarID = ctx.params.calendarID;
+      const {calendarID} = ctx.params;
 
       // Crear un nuevo evento utilizando el servicio de entidades de Strapi
       const result = await super.create(ctx);
